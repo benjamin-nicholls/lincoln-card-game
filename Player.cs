@@ -4,23 +4,39 @@ using System.Collections.Generic;
 namespace oop3 {
     class Player {
 
+        private List<Card> _hand = new List<Card>();
+        private List<Card> _currentRound = new List<Card>();
+        private int _numberOfWins;
 
-        private List<Card> _Hand = new List<Card>();
-        private List<Card> _CurrentRound = new List<Card>();
         public List<Card> CurrentRound {
-            get { return _CurrentRound; }
+            get { return _currentRound; }
         }
-        private int _NumberOfWins;
         public int NumberOfWins {
-            get { return _NumberOfWins; }
-        }
-        public Player() {
-            _NumberOfWins = 0;
+            get { return _numberOfWins; }
         }
 
+
+        public Player() {
+            _numberOfWins = 0;
+        }
+
+
+        public int GetHandSize() {
+            return _hand.Count;
+        }
+
+
+        public void ResetAll() {
+            _hand.Clear();
+            _currentRound.Clear();
+            _numberOfWins = 0;
+        }
+
+
+        // Adds all cards in current round.
         public int CurrentRoundValue() {
             int totalValue = 0;
-            foreach (Card card in _CurrentRound) {
+            foreach (Card card in _currentRound) {
                 // Ace is worth 14, not 1
                 if (card.Value == 1) {
                     totalValue += 14;
@@ -31,37 +47,55 @@ namespace oop3 {
             return totalValue;
         }
 
+
         public void WinRound() {
-            _NumberOfWins++;
+            _numberOfWins++;
         }
+
 
         public void AddCardToHand(Card card) {
-            _Hand.Add(card);
+            _hand.Add(card);
         }
+
 
         public void ClearCurrentRound() {
-            _CurrentRound.Clear();
+            _currentRound.Clear();
         }
 
+
         public void PrintHand() {
-            for (int a = 0; a < _Hand.Count; a++) {
-                Console.WriteLine($"{a + 1}. {_Hand[a].GetDisplayName()}.");
+            for (int a = 0; a < _hand.Count; a++) {
+                Console.WriteLine($"{a + 1}. {_hand[a].GetDisplayName()}.");
             }
         }
 
 
-
         public Card PlayCardFromHand(int index) {
-            Card card = _Hand[index];
-            _Hand.RemoveAt(index);
-            _CurrentRound.Add(card);
+            Card card = _hand[index];
+            _hand.RemoveAt(index);
+            _currentRound.Add(card);
             return card;
         }
 
 
-        public int GetHandSize() {
-            return _Hand.Count;
-        }
+        public virtual Card ChooseCardToPlay() {
+            int UserResponse;
+            while (true) {
+                Console.WriteLine("\nWhich card do you want to play?");
+                Console.Write("> ");
 
+                try {
+                    UserResponse = Convert.ToInt16(Console.ReadLine());
+                } catch {
+                    UserResponse = 0;
+                }
+
+                if ((UserResponse > 0) && (UserResponse <= GetHandSize())) {
+                    return PlayCardFromHand(UserResponse - 1);
+                } else {
+                    Console.WriteLine("Please select a card.\n");
+                }
+            }
+        }
     }
 }
