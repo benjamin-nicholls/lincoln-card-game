@@ -65,7 +65,7 @@ namespace oop3 {
 
         public void PrintHand() {
             for (int a = 0; a < _hand.Count; a++) {
-                Console.WriteLine($"{a + 1}. {_hand[a].GetDisplayName()}.");
+                Console.WriteLine($"{a + 1}. {_hand[a]}.");
             }
         }
 

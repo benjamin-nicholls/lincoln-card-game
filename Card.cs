@@ -23,7 +23,7 @@ namespace oop3 {
 
 
         // Return a display name e.g. "Two of Clubs".
-        public string GetDisplayName() {
+        public override string ToString() {
             return $"{_CardNames.ElementAt(_Value - 1).Value} of {_Suit}";
         }
 

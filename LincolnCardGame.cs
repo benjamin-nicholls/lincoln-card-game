@@ -84,7 +84,7 @@ namespace oop3 {
                 
                 player.PrintHand();
                 Card c = player.ChooseCardToPlay();
-                _lastAction = $"{c.GetDisplayName()} is your first card.";
+                _lastAction = $"{c} is your first card.";
             }
         }
 
@@ -192,7 +192,7 @@ namespace oop3 {
             for (int a = 0; a <= 1; a++) {
                 Console.WriteLine($"Player {a + 1}'s hand: ");
                 foreach (Card card in _players[a].CurrentRound) {
-                    Console.WriteLine("    " + card.GetDisplayName());
+                    Console.WriteLine("    " + card);
                 }
                 Console.WriteLine();
             }

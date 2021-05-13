@@ -60,7 +60,7 @@ namespace oop3 {
         public string Deal() {
             if (IsEmpty()) { return "No more cards in the deck!"; }
             _DiscardPileOfCards.Add(_DeckOfCards[^1]);
-            string CardDealt = _DeckOfCards[^1].GetDisplayName();
+            string CardDealt = _DeckOfCards[^1].ToString();
             _DeckOfCards.RemoveAt(_DeckOfCards.Count - 1);
             return CardDealt;
         }
@@ -83,8 +83,8 @@ namespace oop3 {
                     Card TempCard = new Card(suit, i);
                     string TempName = "";
                     foreach (Card card in _DeckOfCards) {
-                        if (TempCard.GetDisplayName() == card.GetDisplayName()) {
-                            TempName = card.GetDisplayName();
+                        if (TempCard.ToString() == card.ToString()) {
+                            TempName = card.ToString();
                         }
                     }
                     while (TempName.Length < 20) { TempName += " "; }
