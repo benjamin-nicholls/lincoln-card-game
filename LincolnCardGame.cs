@@ -12,7 +12,7 @@ namespace oop3 {
         private int _turnSelector;
         private int _turnCounter;
 
-        private LincolnCardGame() {
+        public LincolnCardGame() {
             _handsize = 10;
             _overflowRounds = 0;
             _turnSelector = 0;
@@ -246,9 +246,9 @@ namespace oop3 {
 
 
         private void PressAnyKeyToContinue() {
-            Console.WriteLine("Press any key to continue.");
+            Console.WriteLine("Press ENTER to continue.");
             Console.Write("> ");
-            Console.ReadKey();
+            Console.ReadLine();
         }
 
 

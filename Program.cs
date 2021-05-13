@@ -7,10 +7,10 @@ namespace oop3 {
 
             int UserResponse;
             while (true) {
-                Console.WriteLine("How many cards do you want each player to have? (1-26)");
+                Console.WriteLine("How many cards do you want each player to have? (1-26, 0 for default)");
                 try {
                     UserResponse = Convert.ToInt16(Console.ReadLine());
-                    if ((UserResponse > 0) && (UserResponse < 27)) {
+                    if ((UserResponse >= 0) && (UserResponse < 27)) {
                         break;
                     }
                     Console.WriteLine("Invalid input.\n");
@@ -18,8 +18,13 @@ namespace oop3 {
                     Console.WriteLine("Invalid input.\n");
                 }
             }
-
-            LincolnCardGame Lincoln = new LincolnCardGame(4);
+            LincolnCardGame Lincoln;
+            if (UserResponse == 0) {
+                Lincoln = new LincolnCardGame();
+            } else {
+                Lincoln = new LincolnCardGame(UserResponse);
+            }
+            
             Lincoln.StartGame();
    
         }
@@ -27,7 +32,7 @@ namespace oop3 {
 }
 
 
-// use an interface
+// use an interface -- iequatable?
 
 // custom exceptions
 
