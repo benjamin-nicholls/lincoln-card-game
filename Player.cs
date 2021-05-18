@@ -3,14 +3,17 @@ using System.Collections.Generic;
 
 namespace oop3 {
     class Player {
-
+        // All cards a player has access to.
         private List<Card> _hand = new List<Card>();
+        // Used for cards currently being played.
         private List<Card> _currentRound = new List<Card>();
+
         private int _numberOfWins;
 
         public List<Card> CurrentRound {
             get { return _currentRound; }
         }
+
         public int NumberOfWins {
             get { return _numberOfWins; }
         }
@@ -33,7 +36,7 @@ namespace oop3 {
         }
 
 
-        // Adds all cards in current round.
+        // Adds all card values in current round.
         public int CurrentRoundValue() {
             int totalValue = 0;
             foreach (Card card in _currentRound) {
@@ -70,7 +73,8 @@ namespace oop3 {
         }
 
 
-        public Card PlayCardFromHand(int index) {
+        // Removes card at specified index from hand and returns the card object.
+        protected Card PlayCardFromHand(int index) {
             Card card = _hand[index];
             _hand.RemoveAt(index);
             _currentRound.Add(card);
@@ -78,6 +82,7 @@ namespace oop3 {
         }
 
 
+        // Prompts the user to select a card from their hand.
         public virtual Card ChooseCardToPlay() {
             int UserResponse;
             while (true) {
@@ -97,5 +102,6 @@ namespace oop3 {
                 }
             }
         }
+
     }
 }

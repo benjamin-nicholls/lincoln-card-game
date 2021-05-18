@@ -3,14 +3,23 @@ using System.Collections.Generic;
 
 namespace oop3 {
     class LincolnCardGame {
+        // Normal 52 card deck.
         private Deck _deck = new Deck();
+        // Stores both player objects.
         private List<Player> _players = new List<Player>();
+
         private bool _computerOpponent;
+        // Used to display information back to the user.
         private string _lastAction = "Game started.";
+        // Number of cards each player is dealt.
         private int _handsize;
+        // Used to 
         private int _overflowRounds;
+        // Keeps track of which player is to play.
         private int _turnSelector;
+        // Counts how many rounds there are.
         private int _turnCounter;
+
 
         public LincolnCardGame() {
             _handsize = 10;
@@ -19,12 +28,15 @@ namespace oop3 {
             _turnCounter = 1;
         }
 
+
+        // Overloaded constructor to allow for custom-handsizes games.
         public LincolnCardGame(int handsize) {
             _handsize = handsize;
             _overflowRounds = 0;
             _turnSelector = 0;
             _turnCounter = 1;
         }
+
 
         public void StartGame() {
             // Loop whilst user wants to keep playing.
@@ -89,6 +101,7 @@ namespace oop3 {
         }
 
 
+        // User input for computer AI or another player opponent.
         private void ChooseComputerOpponent() {
             string UserResponse;
 
@@ -116,7 +129,7 @@ namespace oop3 {
         }
 
 
-        // Deal cards to the players.
+        // Deal cards to the players according to handsize.
         private void DealStartingCards() {
             _deck.Shuffle();
             for (int a = 0; a < _handsize; a++) {

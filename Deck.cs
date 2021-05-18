@@ -35,6 +35,7 @@ namespace oop3 {
         }
 
 
+        // Check if the deck is empty.
         private bool IsEmpty() {
             if (_DeckOfCards.Count > 0) { return false; }
             return true;
@@ -76,7 +77,7 @@ namespace oop3 {
         }
 
 
-        // Used for visual representation.
+        // Used for visual representation of a sorted deck.
         public void PrintCurrentDeckBySuit() {
             for (int i = 1; i <= 13; i++) {
                 foreach (string suit in _Suits) {
@@ -93,5 +94,6 @@ namespace oop3 {
                 Console.Write("\n");
             }
         }
+
     }
 }

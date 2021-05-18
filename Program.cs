@@ -5,6 +5,22 @@ namespace oop3 {
     class Program {
         static void Main() {
 
+            // Allows for custom handsizes.
+            int UserResponse = GetWantedHandsize();
+
+            LincolnCardGame Lincoln;
+            if (UserResponse == 0) {
+                Lincoln = new LincolnCardGame();
+            } else {
+                Lincoln = new LincolnCardGame(UserResponse);
+            }
+            
+            Lincoln.StartGame();
+
+        }
+
+
+        public static int GetWantedHandsize() {
             int UserResponse;
             while (true) {
                 Console.WriteLine("How many cards do you want each player to have? (1-26, 0 for default)");
@@ -18,16 +34,9 @@ namespace oop3 {
                     Console.WriteLine("Invalid input.\n");
                 }
             }
-            LincolnCardGame Lincoln;
-            if (UserResponse == 0) {
-                Lincoln = new LincolnCardGame();
-            } else {
-                Lincoln = new LincolnCardGame(UserResponse);
-            }
-            
-            Lincoln.StartGame();
-   
+            return UserResponse;
         }
+                    
     }
 }
 
