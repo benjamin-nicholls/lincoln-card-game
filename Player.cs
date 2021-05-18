@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace oop3 {
-    class Player {
+    class Player : IEquatable<Player> {
         // All cards a player has access to.
         private List<Card> _hand = new List<Card>();
         // Used for cards currently being played.
@@ -37,7 +37,7 @@ namespace oop3 {
 
 
         // Adds all card values in current round.
-        public int CurrentRoundValue() {
+        protected int CurrentRoundValue() {
             int totalValue = 0;
             foreach (Card card in _currentRound) {
                 // Ace is worth 14, not 1
@@ -103,5 +103,58 @@ namespace oop3 {
             }
         }
 
+        public bool Equals(Player other) {
+            if (other == null) { return false; }
+
+            if (this.CurrentRoundValue() == other.CurrentRoundValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public override bool Equals(Object obj) {
+            if (obj == null) { return false; }
+             Player personObj = obj as Player;
+            if (personObj == null) {
+                return false;
+            } else {
+                return Equals(personObj);
+            }
+        }
+
+        public override int GetHashCode() {
+            return this.GetHashCode();
+        }
+
+
+        public static bool operator ==(Player p1, Player p2) {
+            if (p1.CurrentRoundValue() == p2.CurrentRoundValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator !=(Player p1, Player p2) {
+            return !(p1 == p2);
+        }
+
+        public static bool operator >(Player p1, Player p2) {
+            if (p1.CurrentRoundValue() > p2.CurrentRoundValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator <(Player p1, Player p2) {
+            if (p1.CurrentRoundValue() < p2.CurrentRoundValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
+

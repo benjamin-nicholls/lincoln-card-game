@@ -170,18 +170,20 @@ namespace oop3 {
         private void RoundEndingScreen() {
             int winningPlayer;
 
-            if (_players[0].CurrentRoundValue() > _players[1].CurrentRoundValue()) {
+            if (_players[0] > _players[1]) {
                 winningPlayer = 1;
-            } else if (_players[0].CurrentRoundValue() < _players[1].CurrentRoundValue()) {
+            } else if (_players[0] < _players[1]) {
                 winningPlayer = 2;
             } else {
                 winningPlayer = -1;
             }
 
             if (winningPlayer > 0) {
+                // Assign win to winning player.
                 _players[winningPlayer - 1].WinRound();
                 _lastAction = $"Player {winningPlayer} won round {_turnCounter}.";
 
+                // Assign overflow rounds to winning player.
                 for (int a = 0; a < _overflowRounds; a++) {
                     _players[winningPlayer - 1].WinRound();
                 }
@@ -192,6 +194,7 @@ namespace oop3 {
                 }
                 
             } else {
+                // Draw.
                 _overflowRounds++;
                 _lastAction = "Round was a draw! Next player to win will win this round too!";
             }
