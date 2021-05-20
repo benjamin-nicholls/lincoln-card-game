@@ -7,18 +7,17 @@ namespace oop3 {
         private Deck _deck = new Deck();
         // Stores both player objects.
         private List<Player> _players = new List<Player>();
-
-        private bool _computerOpponent;
         // Used to display information back to the user.
         private string _lastAction = "Game started.";
         // Number of cards each player is dealt.
         private int _handsize;
-        // Used to 
+        // Used to track rounds that haven't been won and assigned to a player yet.
         private int _overflowRounds;
         // Keeps track of which player is to play.
         private int _turnSelector;
         // Counts how many rounds there are.
         private int _turnCounter;
+        private bool _computerOpponent;
 
 
         public LincolnCardGame() {
@@ -64,7 +63,7 @@ namespace oop3 {
 
                 while (!WinCondition()) {
                     for (int a = 1; a <= 2; a++) {
-                        // Warn users everytime player switches.
+                        // Warn users everytime player switches (unless vs computer).
                         ChangingPlayerScreen();
                        
                         Player player = _players[_turnSelector];
@@ -72,8 +71,12 @@ namespace oop3 {
                         // Once all cards are used it's a 1 card vs 1 card luck game.
                         if (player.GetHandSize() == 0) {
                             _lastAction = "No more cards remaining. Drawing one card from the deck.";
-                            Card c = _deck.DealCard();
-                            player.AddCardToHand(c);
+                            try {
+                                Card c = _deck.DealCard();
+                                player.AddCardToHand(c);
+                            } catch (DeckEmptyException ex) {
+                                Logfile.AddError(ex.Message);
+                            }
                         }
 
                         ChooseCardToPlay(player);

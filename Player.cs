@@ -30,6 +30,7 @@ namespace oop3 {
         }
 
 
+        // Prepare player object for a new game.
         public void ResetAll() {
             _hand.Clear();
             _currentRound.Clear();
@@ -51,7 +52,6 @@ namespace oop3 {
                 } catch {
                     throw new CurrentRoundException();
                 }
-
             }
             return totalValue;
         }
@@ -109,6 +109,7 @@ namespace oop3 {
             }
         }
 
+
         public bool Equals(Player other) {
             if (other == null) { return false; }
             try {
@@ -121,6 +122,7 @@ namespace oop3 {
             return false;
         }
 
+
         public override bool Equals(Object obj) {
             if (obj == null) { return false; }
              Player personObj = obj as Player;
@@ -131,12 +133,13 @@ namespace oop3 {
             }
         }
 
+
         public override int GetHashCode() {
             return this.GetHashCode();
         }
 
 
-        public static bool operator ==(Player p1, Player p2) {
+        public static bool operator == (Player p1, Player p2) {
             if (p1.CurrentRoundValue() == p2.CurrentRoundValue()) {
                 return true;
             } else {
@@ -144,11 +147,13 @@ namespace oop3 {
             }
         }
 
-        public static bool operator !=(Player p1, Player p2) {
+
+        public static bool operator != (Player p1, Player p2) {
             return !(p1 == p2);
         }
 
-        public static bool operator >(Player p1, Player p2) {
+
+        public static bool operator > (Player p1, Player p2) {
             if (p1.CurrentRoundValue() > p2.CurrentRoundValue()) {
                 return true;
             } else {
@@ -156,13 +161,15 @@ namespace oop3 {
             }
         }
 
-        public static bool operator <(Player p1, Player p2) {
+
+        public static bool operator < (Player p1, Player p2) {
             if (p1.CurrentRoundValue() < p2.CurrentRoundValue()) {
                 return true;
             } else {
                 return false;
             }
         }
+
     }
 }
 
