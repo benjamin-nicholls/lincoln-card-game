@@ -24,7 +24,7 @@ namespace oop3 {
             int UserResponse;
             while (true) {
                 Console.WriteLine("How many cards do you want each player to have? (1-26, 0 for default)");
-                UserResponse = Convert.ToInt16(Console.ReadLine());
+
                 try {
                     UserResponse = Convert.ToInt16(Console.ReadLine());
                     if ((UserResponse >= 0) && (UserResponse < 27)) {

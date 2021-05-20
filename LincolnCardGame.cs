@@ -41,7 +41,10 @@ namespace oop3 {
         public void StartGame() {
             // Loop whilst user wants to keep playing.
             do {
+                WriteToLogFile("New game.");
+                WriteToLogFile("\n");
                 ChooseComputerOpponent();
+                _players.Clear();
 
                 Player p1 = new Player();
                 _players.Add(p1);
@@ -131,11 +134,16 @@ namespace oop3 {
 
         // Deal cards to the players according to handsize.
         private void DealStartingCards() {
+            _deck.RepopulateDeck();
             _deck.Shuffle();
             for (int a = 0; a < _handsize; a++) {
                 foreach (Player player in _players) {
-                    Card c = _deck.DealCard();
-                    player.AddCardToHand(c);
+                    try {
+                        Card c = _deck.DealCard();
+                        player.AddCardToHand(c);
+                    } catch (DeckEmptyException ex) {
+                        Logfile.AddError(ex.Message);
+                    }
                 }
             }
             _lastAction = $"Each player has been dealt {_handsize} cards.";
@@ -163,6 +171,26 @@ namespace oop3 {
                 PressAnyKeyToContinue();
             }
             _lastAction = "Choose two cards to play. Highest pairing wins.";
+        }
+
+
+        private void WriteToLogFile() {
+            string s = "";
+            for (int a = 1; a <= 2; a++) {
+                s = $"Player {a}: ";
+
+                foreach (Card c in _players[a - 1].CurrentRound) {
+                    s += c + ", ";
+                }
+                // Remove ending ", ".
+                s = s[0..^2];
+                WriteToLogFile(s);
+            }
+        }
+
+
+        private void WriteToLogFile(string s) {
+            Logfile.Add(s);
         }
 
 
@@ -200,7 +228,6 @@ namespace oop3 {
             }
 
             // Show current score and hand of both players for this round.
-
             DrawHeader();
             Console.WriteLine($"Player 1 wins: {_players[0].NumberOfWins}.");
             Console.WriteLine($"Player 2 wins: {_players[1].NumberOfWins}.\n");
@@ -212,6 +239,10 @@ namespace oop3 {
                 }
                 Console.WriteLine();
             }
+
+            WriteToLogFile();
+            WriteToLogFile(_lastAction);
+            WriteToLogFile("\n");
 
             foreach (Player player in _players) {
                 player.ClearCurrentRound();

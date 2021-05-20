@@ -69,7 +69,7 @@ namespace oop3 {
 
         // Returns card (as the Card object) at the top of the 'stack' of cards.
         public Card DealCard() {
-            if (IsEmpty()) { return null; }
+            if (IsEmpty()) { throw new DeckEmptyException(); }
             _DiscardPileOfCards.Add(_DeckOfCards[^1]);
             Card CardDealt = _DeckOfCards[^1];
             _DeckOfCards.RemoveAt(_DeckOfCards.Count - 1);

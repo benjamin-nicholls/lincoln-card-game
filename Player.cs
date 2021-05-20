@@ -10,6 +10,7 @@ namespace oop3 {
 
         private int _numberOfWins;
 
+
         public List<Card> CurrentRound {
             get { return _currentRound; }
         }
@@ -40,12 +41,17 @@ namespace oop3 {
         protected int CurrentRoundValue() {
             int totalValue = 0;
             foreach (Card card in _currentRound) {
-                // Ace is worth 14, not 1
-                if (card.Value == 1) {
-                    totalValue += 14;
-                } else {
-                    totalValue += card.Value;
+                try {
+                    // Ace is worth 14, not 1
+                    if (card.Value == 1) {
+                        totalValue += 14;
+                    } else {
+                        totalValue += card.Value;
+                    }
+                } catch {
+                    throw new CurrentRoundException();
                 }
+
             }
             return totalValue;
         }
@@ -105,12 +111,14 @@ namespace oop3 {
 
         public bool Equals(Player other) {
             if (other == null) { return false; }
-
-            if (this.CurrentRoundValue() == other.CurrentRoundValue()) {
-                return true;
-            } else {
-                return false;
+            try {
+                if (this.CurrentRoundValue() == other.CurrentRoundValue()) {
+                    return true;
+                }
+            } catch (CurrentRoundException ex) {
+                Logfile.AddError(ex.Message);   
             }
+            return false;
         }
 
         public override bool Equals(Object obj) {
