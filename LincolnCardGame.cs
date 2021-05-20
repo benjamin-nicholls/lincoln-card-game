@@ -114,7 +114,7 @@ namespace oop3 {
             bool flag1 = true;
             while (flag1) {
                 DrawHeader();
-                Console.WriteLine("Do you want to play against the computer? (Y/N):");
+                Console.WriteLine("Do you want to play against the computer? Y/N:");
 
                 try {
                     UserResponse = Console.ReadLine().Trim().ToLower();
